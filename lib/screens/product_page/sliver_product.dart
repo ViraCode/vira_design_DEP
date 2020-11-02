@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-// import 'package:flutter_icons/flutter_icons.dart';
+import 'package:faker/faker.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 // import 'package:get/get.dart';/
 // import 'package:unibook/model/book.dart';
 // import 'package:unibook/ui/imageStack.dart';
@@ -8,19 +9,25 @@ import 'package:flutter/material.dart';
 // import 'package:unibook/util/configs.dart';
 // import 'package:easy_localization/easy_localization.dart';
 
-class BookPage extends StatefulWidget {
+class SliverProductPage extends StatefulWidget {
+  static const String route = "/product_page/sliver_product";
+  static const String name = "Sliver Product";
+
   @override
-  _BookPageState createState() => _BookPageState();
+  SliverProductPageState createState() => SliverProductPageState();
 }
 
-class _BookPageState extends State<BookPage> {
+class SliverProductPageState extends State<SliverProductPage> {
   int _current = 0;
   List<String> imgList;
   List<Widget> imageSliders;
+
   @override
   void initState() {
-    imgList = selectedBook.stringImageToList();
-    print(imgList);
+    imgList = [
+      'https://raw.githubusercontent.com/SajadAbdr/vira_design/master/online_assets/587277-515x515-1.jpg',
+      'https://raw.githubusercontent.com/SajadAbdr/vira_design/master/online_assets/food-product-png-1.png'
+    ];
     imageSliders = imgList
             ?.map((item) => Container(
                   child: Container(
@@ -63,27 +70,15 @@ class _BookPageState extends State<BookPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   // title: Text(selectedBook.name),
-      //   backgroundColor: Colors.transparent,
-      // ),
       body: Container(
-          // height: MediaQuery.of(context).size.height,
           child: CustomScrollView(
         slivers: [
           SliverAppBar(
               centerTitle: true,
-              // titleSpacing: 100,
               automaticallyImplyLeading: false,
               expandedHeight: 252.0,
               backgroundColor: Colors.transparent,
               toolbarHeight: 80,
-              // title: CircleAvatar(
-              //   child: Icon(
-              //     Icons.ac_unit,
-              //     color: Colors.blue,
-              //   ),
-              // ),
               leading: IconButton(
                   icon: Icon(
                     Icons.arrow_back_ios,
@@ -164,19 +159,18 @@ class _BookPageState extends State<BookPage> {
                                     child: Column(
                                       children: [
                                         CircleAvatar(
-                                          child: Icon(
-                                              catIcons[selectedBook.category]),
+                                          child: Icon(Icons.food_bank),
                                         ),
                                         SizedBox(
                                           height: 5,
                                         ),
                                         Text(
-                                          selectedBook.category,
+                                          "Chips",
                                           style: TextStyle(
                                               color: Colors.white,
                                               fontWeight: FontWeight.w400,
                                               fontFamily: "McLaren"),
-                                        ).tr()
+                                        )
                                       ],
                                     )),
                                 Expanded(child: Container()),
@@ -196,7 +190,7 @@ class _BookPageState extends State<BookPage> {
                                       ]),
                                       borderRadius: BorderRadius.circular(9)),
                                   child: Text(
-                                    "\$${selectedBook.price}",
+                                    "\$9.99",
                                     style: TextStyle(
                                         color: Colors.red,
                                         shadows: [
@@ -212,7 +206,7 @@ class _BookPageState extends State<BookPage> {
                             Container(
                               margin: EdgeInsets.fromLTRB(6, 5, 6, 15),
                               child: Text(
-                                selectedBook.name,
+                                "Vira Code Chips",
                                 style: TextStyle(
                                     color: Colors.white,
                                     shadows: [
@@ -252,13 +246,13 @@ class _BookPageState extends State<BookPage> {
                                       fontFamily: "McLaren",
                                       fontWeight: FontWeight.w700,
                                       fontSize: 18),
-                                ).tr(),
+                                ),
                               )),
                           Container(
                             margin: EdgeInsets.only(left: 40, right: 40),
                             alignment: AlignmentDirectional.topStart,
                             child: Text(
-                              selectedBook.detail,
+                              faker.lorem.sentence(),
                               style: TextStyle(
                                   fontFamily: "McLaren",
                                   fontWeight: FontWeight.w700,
@@ -279,7 +273,7 @@ class _BookPageState extends State<BookPage> {
                         Row(
                           children: [
                             Text(
-                              selectedBook.owner,
+                              faker.person.name(),
                               style: TextStyle(
                                   fontFamily: "McLaren",
                                   fontWeight: FontWeight.w700,
@@ -363,12 +357,12 @@ class _BookPageState extends State<BookPage> {
                                 color: Colors.blue,
                               ),
                               title: Text(
-                                "Similar Books",
+                                "Similar Products",
                                 style: TextStyle(
                                     fontWeight: FontWeight.w400,
                                     fontSize: 18,
                                     color: Colors.blue),
-                              ).tr(),
+                              ),
                             ),
                           ),
                           Container(
@@ -377,10 +371,9 @@ class _BookPageState extends State<BookPage> {
                                 itemCount: 10,
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (_, i) => BookCard(
-                                    title: "my book name",
-                                    price: "8546",
-                                    imageURL:
-                                        "https://dictionary.cambridge.org/images/thumb/book_noun_001_01679.jpg?version=5.0.115")),
+                                    title: faker.food.cuisine(),
+                                    price: "\$5",
+                                    imageURL: imgList[0])),
                           )
                         ],
                       ),
@@ -390,6 +383,87 @@ class _BookPageState extends State<BookPage> {
           )
         ],
       )),
+    );
+  }
+}
+
+class BookCard extends StatelessWidget {
+  final String title;
+  final String price;
+  final String imageURL;
+  BookCard({this.title, this.price, this.imageURL});
+
+  Widget build(BuildContext context) {
+    return Container(
+        width: 200,
+        decoration: BoxDecoration(
+            border: Border.all(color: Colors.black.withOpacity(0.1))),
+        child: Container(
+            child: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(context, '/BookPage');
+          },
+          child: Container(
+            child: Column(
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width / 2.02,
+                  height: 150,
+                  child: Card(child: Image.network(imageURL)),
+                ),
+                Container(
+                    margin: EdgeInsets.only(top: 5),
+                    child: Text(
+                      title,
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width / 30,
+                        fontFamily: 'BNazanin',
+                      ),
+                    )),
+                Container(
+                  margin: EdgeInsets.only(top: 5),
+                  child: Text(
+                    price,
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width / 30,
+                        fontFamily: 'BNazanin'),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        )));
+  }
+}
+
+class ImageStack extends StatefulWidget {
+  ImageStack({Key key}) : super(key: key);
+
+  @override
+  _ImageStackState createState() => _ImageStackState();
+}
+
+class _ImageStackState extends State<ImageStack> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: CarouselSlider(
+        options: CarouselOptions(height: 400.0),
+        items: [1, 2, 3, 4, 5].map((i) {
+          return Builder(
+            builder: (BuildContext context) {
+              return Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: EdgeInsets.symmetric(horizontal: 5.0),
+                  decoration: BoxDecoration(color: Colors.amber),
+                  child: Text(
+                    'text $i',
+                    style: TextStyle(fontSize: 16.0),
+                  ));
+            },
+          );
+        }).toList(),
+      ),
     );
   }
 }
