@@ -1,7 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 // import 'package:flutter_icons/flutter_icons.dart';
-// import 'package:get/get.dart';
+// import 'package:get/get.dart';/
 // import 'package:unibook/model/book.dart';
 // import 'package:unibook/ui/imageStack.dart';
 // import 'package:unibook/ui/widgets/bookCard.dart';
