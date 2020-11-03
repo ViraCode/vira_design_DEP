@@ -71,6 +71,34 @@ dev_dependencies:
 # The following section is specific to Flutter.
 flutter:
 
+  fonts:
+    - family: Anton
+      fonts:
+        - asset: assets/fonts/Anton-Regular.ttf
+    - family: Itim
+      fonts:
+        - asset: assets/fonts/Itim-Regular.ttf
+    - family: JosefinSans
+      fonts:
+        - asset: assets/fonts/JosefinSans-Italic-VariableFont_wght.ttf
+        - asset: assets/fonts/JosefinSans-VariableFont_wght.ttf
+    - family: Lato
+      fonts:
+        - asset: assets/fonts/Lato-Regular.ttf
+        - asset: assets/fonts/Lato-Black.ttf
+        - asset: assets/fonts/Lato-Bold.ttf
+        - asset: assets/fonts/Lato-BoldItalic.ttf
+        - asset: assets/fonts/Lato-Italic.ttf
+        - asset: assets/fonts/Lato-Light.ttf
+    - family: McLaren
+      fonts:
+        - asset: assets/fonts/McLaren-Regular.ttf
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans-Regular.ttf
+    - family: Oswald
+      fonts:
+        - asset: assets/fonts/Oswald-VariableFont_wght.ttf
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.

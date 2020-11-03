@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:vira_design/screens/about/card_about.dart';
 import 'package:vira_design/screens/bottom_navigation_bars/convex_bottom_navigation_bar.dart';
+import 'package:vira_design/screens/buttons/buttons.dart';
 import 'package:vira_design/screens/main_screen.dart';
 import 'package:vira_design/screens/product_page/sliver_product.dart';
+import 'package:vira_design/screens/settings/sectioned_settings_with_profile.dart';
 
 void main() {
   runApp(MyApp());
@@ -21,6 +24,27 @@ class MyApp extends StatelessWidget {
       home: MainScreen(),
       onGenerateRoute: (settings) {
         switch (settings.name) {
+          case ButtonPage.route:
+            return PageTransition(
+              child: ButtonPage(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+            break;
+          case SectionedSettinsWithProfile.route:
+            return PageTransition(
+              child: SectionedSettinsWithProfile(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+            break;
+          case CardAbout.route:
+            return PageTransition(
+              child: CardAbout(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+            break;
           case SliverProductPage.route:
             return PageTransition(
               child: SliverProductPage(),
@@ -35,7 +59,6 @@ class MyApp extends StatelessWidget {
               settings: settings,
             );
             break;
-
           default:
             return null;
         }
