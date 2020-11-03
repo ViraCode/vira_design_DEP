@@ -183,9 +183,7 @@ class _ButtonPageState extends State<ButtonPage> {
                   text: "Pop-up Buttons",
                   child: PopupMenuButton<WhyFarther>(
                     onSelected: (WhyFarther result) {
-                      setState(() {
-                        var _selection = result;
-                      });
+                      setState(() {});
                     },
                     itemBuilder: (BuildContext context) =>
                         <PopupMenuEntry<WhyFarther>>[

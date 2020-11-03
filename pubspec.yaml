@@ -26,6 +26,7 @@ dependencies:
   faker: ^1.2.1
   get: ^3.11.1
   # flutter_secure_storage: ^3.3.3
+  backdrop: ^0.4.7 
   flutter_masked_text: ^0.7.0
   flare_flutter: ^1.7.1
   easy_localization: ^2.3.3

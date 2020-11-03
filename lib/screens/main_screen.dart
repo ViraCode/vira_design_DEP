@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:vira_design/screens/about/card_about.dart';
+import 'package:vira_design/screens/backdrop/backdrop_sample.dart';
+import 'package:vira_design/screens/backdrop/custom_backdrop.dart';
 import 'package:vira_design/screens/bottom_navigation_bars/convex_bottom_navigation_bar.dart';
 import 'package:vira_design/screens/buttons/buttons.dart';
 import 'package:vira_design/screens/product_page/sliver_product.dart';
@@ -36,6 +38,14 @@ class _MainScreenState extends State<MainScreen> {
             ListTile(
                 title: Text(ButtonPage.name),
                 onTap: () => Navigator.pushNamed(context, ButtonPage.route)),
+            ListTile(
+                title: Text(BackDropSmaple.name),
+                onTap: () =>
+                    Navigator.pushNamed(context, BackDropSmaple.route)),
+            ListTile(
+                title: Text(CustomBackDrop.name),
+                onTap: () =>
+                    Navigator.pushNamed(context, CustomBackDrop.route)),
           ],
         ),
       ),
