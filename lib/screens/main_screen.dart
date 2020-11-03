@@ -4,6 +4,7 @@ import 'package:vira_design/screens/backdrop/backdrop_sample.dart';
 import 'package:vira_design/screens/backdrop/custom_backdrop.dart';
 import 'package:vira_design/screens/bottom_navigation_bars/convex_bottom_navigation_bar.dart';
 import 'package:vira_design/screens/buttons/buttons.dart';
+import 'package:vira_design/screens/dialog_box/custom_dialog_box.dart';
 import 'package:vira_design/screens/product_page/sliver_product.dart';
 import 'package:vira_design/screens/settings/sectioned_settings_with_profile.dart';
 
@@ -46,6 +47,10 @@ class _MainScreenState extends State<MainScreen> {
                 title: Text(CustomBackDrop.name),
                 onTap: () =>
                     Navigator.pushNamed(context, CustomBackDrop.route)),
+            ListTile(
+                title: Text(CustomDialogBox.name),
+                onTap: () =>
+                    Navigator.pushNamed(context, CustomDialogBox.route)),
           ],
         ),
       ),
