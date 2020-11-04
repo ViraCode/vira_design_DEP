@@ -90,6 +90,7 @@ class _SliverStackedProductState extends State<SliverStackedProduct> {
                                 vertical: 10.0, horizontal: 2.0),
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
+                              boxShadow: [],
                               color: _current == index
                                   ? Color.fromRGBO(0, 0, 0, 0.9)
                                   : Color.fromRGBO(0, 0, 0, 0.4),
