@@ -18,6 +18,8 @@ class MainScreen extends StatefulWidget {
 }
 
 class _MainScreenState extends State<MainScreen> {
+  var textcon = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +70,13 @@ class _MainScreenState extends State<MainScreen> {
                     Navigator.pushNamed(context, SliverStackedProduct.route)),
             Directionality(
               textDirection: TextDirection.rtl,
-              child: CupertinoTextField(),
+              child: TextField(
+                textDirection: TextDirection.rtl,
+                controller: textcon,
+                onChanged: (String string) {
+                  print(textcon.text);
+                },
+              ),
             )
           ],
         ),

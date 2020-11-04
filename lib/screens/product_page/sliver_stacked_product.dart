@@ -31,17 +31,6 @@ class _SliverStackedProductState extends State<SliverStackedProduct> {
           height: MediaQuery.of(context).size.height * 3,
           child: Stack(
             children: [
-              Positioned(
-                left: 20,
-                child: IconButton(
-                    icon: Icon(
-                      Icons.arrow_back_ios,
-                      color: Colors.blue,
-                    ),
-                    onPressed: () {
-                      Navigator.pop(context);
-                    }),
-              ),
               SizedBox(
                 child: Container(
                   child: Stack(alignment: Alignment.topCenter, children: [
@@ -113,6 +102,17 @@ class _SliverStackedProductState extends State<SliverStackedProduct> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height * 2,
                 ),
+              ),
+              Positioned(
+                left: 20,
+                child: IconButton(
+                    icon: Icon(
+                      Icons.arrow_back_ios,
+                      color: Colors.blue,
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    }),
               ),
             ],
           ),
