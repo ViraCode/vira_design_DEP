@@ -8,6 +8,7 @@ import 'package:vira_design/screens/buttons/buttons.dart';
 import 'package:vira_design/screens/dialog_box/custom_dialog_box.dart';
 import 'package:vira_design/screens/main_screen.dart';
 import 'package:vira_design/screens/product_page/sliver_product.dart';
+import 'package:vira_design/screens/product_page/sliver_stacked_product.dart';
 import 'package:vira_design/screens/settings/sectioned_settings_with_profile.dart';
 
 void main() {
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'VIRA Design',
       theme: ThemeData(
         primarySwatch: Colors.purple,
         visualDensity: VisualDensity.adaptivePlatformDensity,
@@ -27,6 +28,12 @@ class MyApp extends StatelessWidget {
       home: MainScreen(),
       onGenerateRoute: (settings) {
         switch (settings.name) {
+          case SliverStackedProduct.route:
+            return PageTransition(
+              child: SliverStackedProduct(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
           case CustomDialogBox.route:
             return PageTransition(
               child: CustomDialogBox(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+// import 'package:intl/intl.dart';
 import 'package:vira_design/screens/about/card_about.dart';
 import 'package:vira_design/screens/backdrop/backdrop_sample.dart';
 import 'package:vira_design/screens/backdrop/custom_backdrop.dart';
@@ -6,7 +7,10 @@ import 'package:vira_design/screens/bottom_navigation_bars/convex_bottom_navigat
 import 'package:vira_design/screens/buttons/buttons.dart';
 import 'package:vira_design/screens/dialog_box/custom_dialog_box.dart';
 import 'package:vira_design/screens/product_page/sliver_product.dart';
+import 'package:vira_design/screens/product_page/sliver_stacked_product.dart';
 import 'package:vira_design/screens/settings/sectioned_settings_with_profile.dart';
+import 'dart:core';
+import 'package:flutter/cupertino.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -17,7 +21,14 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Text("VIRA Design",
+            style: TextStyle(
+              color: Colors.white,
+              fontFamily: "Open Sans",
+              fontWeight: FontWeight.w800,
+            )),
+      ),
       body: Container(
         child: ListView(
           children: [
@@ -51,6 +62,14 @@ class _MainScreenState extends State<MainScreen> {
                 title: Text(CustomDialogBox.name),
                 onTap: () =>
                     Navigator.pushNamed(context, CustomDialogBox.route)),
+            ListTile(
+                title: Text(SliverStackedProduct.name),
+                onTap: () =>
+                    Navigator.pushNamed(context, SliverStackedProduct.route)),
+            Directionality(
+              textDirection: TextDirection.rtl,
+              child: CupertinoTextField(),
+            )
           ],
         ),
       ),

@@ -2,12 +2,6 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:faker/faker.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-// import 'package:get/get.dart';/
-// import 'package:unibook/model/book.dart';
-// import 'package:unibook/ui/imageStack.dart';
-// import 'package:unibook/ui/widgets/bookCard.dart';
-// import 'package:unibook/util/configs.dart';
-// import 'package:easy_localization/easy_localization.dart';
 
 class SliverProductPage extends StatefulWidget {
   static const String route = "/product_page/sliver_product";
@@ -137,7 +131,7 @@ class SliverProductPageState extends State<SliverProductPage> {
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),
                         topRight: Radius.circular(40))),
-                child: Column(
+                child: ListView(
                   children: [
                     Container(
                         decoration: BoxDecoration(
@@ -368,12 +362,32 @@ class SliverProductPageState extends State<SliverProductPage> {
                           Container(
                             height: MediaQuery.of(context).size.height / 4.5,
                             child: ListView.builder(
-                                itemCount: 10,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (_, i) => BookCard(
-                                    title: faker.food.cuisine(),
-                                    price: "\$5",
-                                    imageURL: imgList[0])),
+                              itemCount: 10,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (_, i) => MyCard(
+                                  title: "T Shirt",
+                                  price: "\$50",
+                                  categories: [
+                                    {
+                                      "text": "Clothes",
+                                      "iconData":
+                                          MaterialCommunityIcons.tshirt_crew
+                                    },
+                                    {
+                                      "text": "Clothes",
+                                      "iconData":
+                                          MaterialCommunityIcons.tshirt_crew
+                                    },
+                                    {
+                                      "text": "Clothes",
+                                      "iconData":
+                                          MaterialCommunityIcons.tshirt_crew
+                                    }
+                                  ],
+                                  offPrice: "\$35",
+                                  imageURL:
+                                      "https://raw.githubusercontent.com/SajadAbdr/vira_design/master/online_assets/effect-of-coronavirus-on-food.jpg"),
+                            ),
                           )
                         ],
                       ),
@@ -387,48 +401,92 @@ class SliverProductPageState extends State<SliverProductPage> {
   }
 }
 
-class BookCard extends StatelessWidget {
+class MyCard extends StatelessWidget {
   final String title;
   final String price;
+  final String offPrice;
+  final List<Map<String, dynamic>>
+      categories; // [{"text": "String", "iconData": IconData}]
   final String imageURL;
-  BookCard({this.title, this.price, this.imageURL});
+  MyCard(
+      {this.title, this.price, this.imageURL, this.categories, this.offPrice});
 
   Widget build(BuildContext context) {
     return Container(
-        width: 200,
+        width: MediaQuery.of(context).size.width / 2,
         decoration: BoxDecoration(
             border: Border.all(color: Colors.black.withOpacity(0.1))),
         child: Container(
             child: GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, '/BookPage');
-          },
+          onTap: () {},
           child: Container(
+            color: Colors.white,
             child: Column(
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width / 2.02,
                   height: 150,
-                  child: Card(child: Image.network(imageURL)),
+                  child: Card(
+                      child: Image.network(
+                    imageURL,
+                    // fit: BoxFit.fill,
+                  )),
                 ),
-                Container(
-                    margin: EdgeInsets.only(top: 5),
-                    child: Text(
-                      title,
-                      style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / 30,
-                        fontFamily: 'BNazanin',
+                Row(
+                  children: [
+                    Container(
+                        margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
+                        child: Text(
+                          "$title",
+                          style: TextStyle(
+                            fontSize: MediaQuery.of(context).size.width / 28,
+                            fontFamily: 'Oswald',
+                          ),
+                        )),
+                    Expanded(
+                      child: Container(),
+                    ),
+                    offPrice.isNotEmpty
+                        ? Text("\n$offPrice",
+                            style: TextStyle(
+                              color: Colors.red,
+                              fontWeight: FontWeight.bold,
+                              decorationStyle: TextDecorationStyle.wavy,
+                              decorationThickness: 5,
+                              decorationColor: Colors.black,
+                              fontSize: MediaQuery.of(context).size.width / 27,
+                            ))
+                        : null,
+                    Container(
+                      margin: EdgeInsets.fromLTRB(15, 15, 15, 0),
+                      child: CircleAvatar(
+                        backgroundColor: Colors.red,
+                        child: Text(
+                          price,
+                          style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.width / 30,
+                              fontFamily: 'Oswald',
+                              color: Colors.white,
+                              decoration: offPrice == null
+                                  ? null
+                                  : TextDecoration.lineThrough),
+                        ),
                       ),
-                    )),
-                Container(
-                  margin: EdgeInsets.only(top: 5),
-                  child: Text(
-                    price,
-                    style: TextStyle(
-                        fontSize: MediaQuery.of(context).size.width / 30,
-                        fontFamily: 'BNazanin'),
-                  ),
+                    ),
+                  ],
                 ),
+                Wrap(alignment: WrapAlignment.center, spacing: 4, children: [
+                  for (int i = 0; i < categories.length; i++)
+                    Chip(
+                      backgroundColor: Colors.green,
+                      label: Text(
+                        categories[i]["text"],
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      avatar:
+                          Icon(categories[i]["iconData"], color: Colors.white),
+                    ),
+                ]),
               ],
             ),
           ),
