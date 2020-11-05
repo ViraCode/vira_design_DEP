@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:vira_design/chat/simple_chat.dart';
+import 'package:vira_design/screens/animation_ui/flight_survey.dart';
+import 'package:vira_design/screens/chat/simple_chat.dart';
 import 'package:vira_design/screens/about/card_about.dart';
 import 'package:vira_design/screens/animation_ui/drawer_2d.dart';
 import 'package:vira_design/screens/backdrop/backdrop_sample.dart';
@@ -33,6 +34,12 @@ class MyApp extends StatelessWidget {
       home: MainScreen(),
       onGenerateRoute: (settings) {
         switch (settings.name) {
+          case FlightSurvey.route:
+            return PageTransition(
+              child: FlightSurvey(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
           case Drawer3d.route:
             return PageTransition(
               child: Drawer3d(),

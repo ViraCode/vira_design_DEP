@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:vira_design/chat/simple_chat.dart';
-// import 'package:intl/intl.dart';
+import 'package:vira_design/screens/animation_ui/flight_survey.dart';
+import 'package:vira_design/screens/chat/simple_chat.dart';
 import 'package:vira_design/screens/about/card_about.dart';
 import 'package:vira_design/screens/animation_ui/drawer_2d.dart';
 import 'package:vira_design/screens/backdrop/backdrop_sample.dart';
@@ -99,16 +99,24 @@ class _MainScreenState extends State<MainScreen> {
                         fontWeight: FontWeight.w600,
                         letterSpacing: 1)),
                 onTap: () => Navigator.pushNamed(context, Drawer3d.route)),
-            Directionality(
-              textDirection: TextDirection.rtl,
-              child: TextField(
-                textDirection: TextDirection.rtl,
-                controller: textcon,
-                onChanged: (String string) {
-                  print(textcon.text);
-                },
-              ),
-            )
+            ListTile(
+                title: Text(FlightSurvey.name,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "Lato",
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1)),
+                onTap: () => Navigator.pushNamed(context, FlightSurvey.route)),
+            // Directionality(
+            //   textDirection: TextDirection.rtl,
+            //   child: TextField(
+            //     textDirection: TextDirection.rtl,
+            //     controller: textcon,
+            //     onChanged: (String string) {
+            //       print(textcon.text);
+            //     },
+            //   ),
+            // )
           ],
         ),
       ),

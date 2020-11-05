@@ -125,7 +125,7 @@ class SliverProductPageState extends State<SliverProductPage> {
               ])))),
           SliverToBoxAdapter(
             child: Container(
-                // height: MediaQuery.of(context).size.height,
+                height: MediaQuery.of(context).size.height,
                 decoration: BoxDecoration(
                     color: Colors.blue[50],
                     borderRadius: BorderRadius.only(
