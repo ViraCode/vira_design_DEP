@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class Drawer3d extends StatefulWidget {
   static const String route = "/animation_ui/drawer_3d";
@@ -12,9 +13,10 @@ class _Drawer3dState extends State<Drawer3d>
     with SingleTickerProviderStateMixin {
   AnimationController animationController;
   bool _canBeDragged;
-  final double maxSlide = 225;
+  double maxSlide;
+
   // double minDragStartEdge = 100;
-  // double maxDragStartEdge = 200;
+  double maxDragStartEdge = 0;
   @override
   void initState() {
     animationController =
@@ -23,12 +25,12 @@ class _Drawer3dState extends State<Drawer3d>
   }
 
   void _onDragStart(DragStartDetails details) {
+    print("drag started");
     bool isDragOpenFromLeft = animationController.isDismissed &&
         details.globalPosition.dx <
             MediaQuery.of(context).size.width * 0.7; //minDragStartEdge
     bool isDragClosedFromRight = animationController.isCompleted &&
-        details.globalPosition.dx >
-            MediaQuery.of(context).size.width * 0.5; //maxDragStartEdge
+        details.globalPosition.dx > 0.0; //maxDragStartEdge
     _canBeDragged = isDragOpenFromLeft || isDragClosedFromRight;
   }
 
@@ -61,6 +63,7 @@ class _Drawer3dState extends State<Drawer3d>
 
   @override
   Widget build(BuildContext context) {
+    maxSlide = MediaQuery.of(context).size.width / 2;
     return GestureDetector(
       onHorizontalDragStart: _onDragStart,
       onHorizontalDragUpdate: _onDragUpdate,
@@ -68,24 +71,35 @@ class _Drawer3dState extends State<Drawer3d>
       child: AnimatedBuilder(
           animation: animationController,
           builder: (_, widget) {
-            double slide = maxSlide * animationController.value;
-            double scale = 1 - (animationController.value * 0.30);
             return Stack(
               children: [
-                Scaffold(
-                  backgroundColor: Colors.yellow,
+                Transform.translate(
+                  offset: Offset(maxSlide * (animationController.value - 1), 0),
+                  child: Transform(
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.001)
+                      ..rotateY(math.pi / 2 * (1 - animationController.value)),
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      color: Colors.yellow,
+                      width: MediaQuery.of(context).size.width / 2,
+                    ),
+                  ),
                 ),
-                Transform(
-                  transform: Matrix4.identity()
-                    ..translate(slide)
-                    ..scale(scale),
-                  alignment: Alignment.centerLeft,
-                  child: Scaffold(
-                      backgroundColor: Colors.blueAccent,
-                      appBar: AppBar(title: Text("2D Animated Drawer")),
-                      body: Center(
-                        child: Text("Drag me"),
-                      )),
+                Transform.translate(
+                  offset: Offset(maxSlide * animationController.value, 0),
+                  child: Transform(
+                    transform: Matrix4.identity()
+                      ..setEntry(3, 2, 0.001)
+                      ..rotateY(-math.pi / 2 * animationController.value),
+                    alignment: Alignment.centerLeft,
+                    child: Scaffold(
+                        backgroundColor: Colors.blueAccent,
+                        appBar: AppBar(title: Text("3D Animated Drawer")),
+                        body: Center(
+                          child: Text("Drag me"),
+                        )),
+                  ),
                 )
               ],
             );

@@ -22,6 +22,7 @@ class _SimpleChatState extends State<SimpleChat> {
       message: faker.lorem.sentence(),
     )
   ];
+  // ignore: unused_field
   List<Widget> _guyMessages = [
     GuyMessage(
       message: "heeyy",
