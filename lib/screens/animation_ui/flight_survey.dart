@@ -48,7 +48,7 @@ class Page extends StatefulWidget {
 
 class _PageState extends State<Page> {
   List<GlobalKey<_ItemFaderState>> keys;
-  GlobalKey myKey = GlobalKey();
+  // GlobalKey myKey = GlobalKey();
   @override
   void initState() {
     keys = List.generate(
@@ -117,20 +117,20 @@ class _PageState extends State<Page> {
                     child: GestureDetector(
                       onTap: () {
                         onTap();
-                        RenderBox object =
-                            myKey.currentContext.findRenderObject();
-                        Offset globalPosition =
-                            object.localToGlobal(Offset.zero);
-                        print("ccc = ${globalPosition.dy} and ");
+                        // RenderBox object =
+                        //     myKey.currentContext.findRenderObject();
+                        // Offset globalPosition =
+                        //     object.localToGlobal(Offset.zero);
+                        // print("ccc = ${globalPosition.dy} and ");
 
-                        keys[widget.answers.indexOf(e) + 2]
-                            .currentState
-                            .animateDot(globalPosition);
+                        // keys[widget.answers.indexOf(e) + 2]
+                        //     .currentState
+                        //     .animateDot(globalPosition);
                       },
                       child: Container(
                           margin: EdgeInsets.only(top: 50),
                           child: Row(
-                            key: myKey,
+                            // key: myKey,
                             children: [
                               Icon(
                                 Icons.circle,
