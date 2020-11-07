@@ -113,50 +113,69 @@ class _PageState extends State<Page> {
               ),
               Spacer(),
               ...widget.answers.map((e) => ItemFader(
-                    key: keys[widget.answers.indexOf(e) + 2],
-                    child: GestureDetector(
-                      onTap: () {
-                        onTap();
-                        // RenderBox object =
-                        //     myKey.currentContext.findRenderObject();
-                        // Offset globalPosition =
-                        //     object.localToGlobal(Offset.zero);
-                        // print("ccc = ${globalPosition.dy} and ");
-
-                        // keys[widget.answers.indexOf(e) + 2]
-                        //     .currentState
-                        //     .animateDot(globalPosition);
-                      },
-                      child: Container(
-                          margin: EdgeInsets.only(top: 50),
-                          child: Row(
-                            // key: myKey,
-                            children: [
-                              Icon(
-                                Icons.circle,
-                                color: Colors.white,
-                                size: 15,
-                              ),
-                              SizedBox(
-                                width: 15,
-                              ),
-                              Text(e,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                      letterSpacing: 1.2,
-                                      fontWeight: FontWeight.w600)),
-                            ],
-                          )),
-                      // onTap: widget.onOptionSelected,
-                    ),
-                  )),
+                  key: keys[widget.answers.indexOf(e) + 2],
+                  child: OptionItem(
+                    option: e,
+                    onTap: onTap,
+                    faderkey: keys[widget.answers.indexOf(e) + 2],
+                  ))),
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.1,
               ),
             ],
           ),
         ));
+  }
+}
+
+class OptionItem extends StatefulWidget {
+  final String option;
+  final GlobalKey<_ItemFaderState> faderkey;
+  final Function onTap;
+  OptionItem({
+    Key key,
+    @required this.option,
+    @required this.onTap,
+    @required this.faderkey,
+  }) : super(key: key);
+  @override
+  _OptionItemState createState() => _OptionItemState();
+}
+
+class _OptionItemState extends State<OptionItem> {
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        widget.onTap();
+        // RenderBox object = context.findRenderObject();
+        // Offset globalPosition = object.localToGlobal(Offset.zero);
+        // print("ccc = ${globalPosition.dy} and ");
+        // widget.faderkey.currentState.animateDot(globalPosition);
+      },
+      child: Container(
+          margin: EdgeInsets.only(top: 50),
+          child: Row(
+            // key: myKey,
+            children: [
+              Icon(
+                Icons.circle,
+                color: Colors.white,
+                size: 15,
+              ),
+              SizedBox(
+                width: 15,
+              ),
+              Text(widget.option,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                      letterSpacing: 1.2,
+                      fontWeight: FontWeight.w600)),
+            ],
+          )),
+      // onTap: widget.onOptionSelected,
+    );
   }
 }
 
@@ -183,16 +202,16 @@ class _ItemFaderState extends State<ItemFader>
 
   Future<void> animateDot(Offset startOffset) async {
     OverlayEntry entry = OverlayEntry(builder: (context) {
-      // double minTop = MediaQuery.of(context).padding.top;
+      double minTop = MediaQuery.of(context).padding.top + 52;
       return AnimatedBuilder(
         animation: _animationController,
-        builder: (_, child) {
-          print(startOffset.dy);
+        builder: (context, child) {
           return Positioned(
-              left: MediaQuery.of(context).size.width * 0.1 + 17,
-              bottom: startOffset.dy + _animationController.value * 100,
-              // top: minTop +
-              //     (startOffset.dy - minTop) * (1 - _animationController.value),
+              left: MediaQuery.of(context).size.width * 0.1 + 16,
+              // top: startOffset.dy -
+              //     (-_animationController.value * startOffset.dy),
+              top: minTop +
+                  (startOffset.dy - minTop) * (1 - _animationController.value),
               child: child);
         },
         child: Icon(
@@ -203,7 +222,7 @@ class _ItemFaderState extends State<ItemFader>
       );
     });
     Overlay.of(context).insert(entry);
-    await _animationController.forward(from: 0);
+    await _animationController.forward();
     entry.remove();
   }
 

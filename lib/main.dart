@@ -8,6 +8,7 @@ import 'package:vira_design/screens/backdrop/backdrop_sample.dart';
 import 'package:vira_design/screens/backdrop/custom_backdrop.dart';
 import 'package:vira_design/screens/bottom_navigation_bars/convex_bottom_navigation_bar.dart';
 import 'package:vira_design/screens/buttons/buttons.dart';
+import 'package:vira_design/screens/customs/team_task_management.dart';
 import 'package:vira_design/screens/dialog_box/custom_dialog_box.dart';
 import 'package:vira_design/screens/main_screen.dart';
 import 'package:vira_design/screens/product_page/sliver_product.dart';
@@ -34,6 +35,13 @@ class MyApp extends StatelessWidget {
       home: MainScreen(),
       onGenerateRoute: (settings) {
         switch (settings.name) {
+          case TeamTaskManagement.route:
+            return PageTransition(
+              child: TeamTaskManagement(),
+              type: PageTransitionType.fade,
+              settings: settings,
+            );
+
           case FlightSurvey.route:
             return PageTransition(
               child: FlightSurvey(),

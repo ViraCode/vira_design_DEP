@@ -15,6 +15,7 @@ import 'dart:core';
 import 'package:flutter/cupertino.dart';
 
 import 'animation_ui/drawer_3d.dart';
+import 'customs/team_task_management.dart';
 
 class MainScreen extends StatefulWidget {
   @override
@@ -107,6 +108,16 @@ class _MainScreenState extends State<MainScreen> {
                         fontWeight: FontWeight.w600,
                         letterSpacing: 1)),
                 onTap: () => Navigator.pushNamed(context, FlightSurvey.route)),
+            ListTile(
+                title: Text(TeamTaskManagement.name,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "Lato",
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1)),
+                onTap: () =>
+                    Navigator.pushNamed(context, TeamTaskManagement.route)),
+
             // Directionality(
             //   textDirection: TextDirection.rtl,
             //   child: TextField(
