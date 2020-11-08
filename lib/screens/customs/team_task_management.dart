@@ -32,7 +32,7 @@ class _TeamTaskManagementState extends State<TeamTaskManagement> {
         body: CustomScrollView(
       slivers: [
         SliverAppBar(
-            expandedHeight: MediaQuery.of(context).size.height * 0.8,
+            expandedHeight: MediaQuery.of(context).size.height * 0.75,
             backgroundColor: Color.fromRGBO(15, 17, 52, 1),
             toolbarHeight: 80,
             floating: true,
@@ -125,6 +125,7 @@ class Task {
   final String title;
   final String subTitle;
   final List<String> avatars;
+
   Task({
     @required this.time,
     @required this.subTitle,
@@ -142,21 +143,29 @@ class TaskCard extends StatefulWidget {
 
 class _TaskCardState extends State<TaskCard> {
   List<bool> expndedAvatar;
+
   @override
   void initState() {
-    for (int i = 0; i < widget.tasks.length; i++)
+    // for (int i = 0; i < widget.tasks.length; i++) {
+    // print("key[$i][$j]");
+    // widget.tasks[i].keys = List.generate(widget.tasks[i].avatars.length,
+    //     (index) => GlobalKey<_AvatarFaderState>());
+    //  = new GlobalKey<_AvatarFaderState>();
+    // keys[i][j] = new GlobalKey<_AvatarFaderState>();
 
-      // expndedAvatar = new List<bool>(widget.tasks.length);
+    //   // expndedAvatar = new List<bool>(widget.tasks.length);
+    // }
 
-      super.initState();
+    super.initState();
   }
 
-  // void onTap(List<GlobalKey> keys) async {
-  //   for (GlobalKey<_AvatarFaderState> key in keys) {
-  //     await Future.delayed(Duration(milliseconds: 100));
-  //     key.currentState.show();
-  //   }
-  // }
+  void onTap(List<GlobalKey<_AvatarFaderState>> keysx) async {
+    print("im ontappppppppppp");
+    for (GlobalKey<_AvatarFaderState> key in keysx) {
+      await Future.delayed(Duration(milliseconds: 100));
+      key.currentState.show();
+    }
+  }
 
   // void onHide(List<GlobalKey> keys) async {
   //   for (GlobalKey<_AvatarFaderState> key in keys) {
@@ -177,168 +186,254 @@ class _TaskCardState extends State<TaskCard> {
         SizedBox(
           width: 20,
         ),
-        ...tasks.map((task) => Container(
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-              height: MediaQuery.of(context).size.height * 0.18,
-              width: MediaQuery.of(context).size.width * 0.5,
-              decoration: BoxDecoration(
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.blue.withOpacity(0.3),
-                        spreadRadius: 15,
-                        blurRadius: 20)
-                  ],
-                  gradient: LinearGradient(
-                      colors: [Colors.blue[200], Colors.blue[400]],
-                      end: Alignment.bottomCenter,
-                      begin: Alignment.topCenter),
-                  // color: Color.fromRGBO(0, 173, 255, 1),
-                  borderRadius: BorderRadius.circular(80)),
-              child: Stack(
-                // mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Positioned(
-                    top: 30,
-                    left: 40,
-                    child: Row(
-                      children: [
-                        Icon(
-                          MaterialCommunityIcons.clock_outline,
-                          color: Colors.blue[800],
-                          size: 60,
-                        ),
-                        Text(
-                          " ${task.time}",
-                          style: TextStyle(
-                              color: Colors.blue[800],
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              fontFamily: "OpenSans",
-                              letterSpacing: 1.5),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Positioned(
-                      top: MediaQuery.of(context).size.height * 0.11,
-                      left: MediaQuery.of(context).size.width * 0.1,
-                      child: Text(
-                        task.title,
+        ...tasks.map((task) {
+          return Container(
+            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+            // height: MediaQuery.of(context).size.height * 0.01,
+            width: MediaQuery.of(context).size.width * 0.6,
+            decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                      color: Colors.blue.withOpacity(0.3),
+                      spreadRadius: 15,
+                      blurRadius: 20)
+                ],
+                gradient: LinearGradient(
+                    colors: [Colors.blue[200], Colors.blue[400]],
+                    end: Alignment.bottomCenter,
+                    begin: Alignment.topCenter),
+                // color: Color.fromRGBO(0, 173, 255, 1),
+                borderRadius: BorderRadius.circular(80)),
+            child: Stack(
+              // mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Positioned(
+                  top: 30,
+                  left: 40,
+                  child: Row(
+                    children: [
+                      Icon(
+                        MaterialCommunityIcons.clock_outline,
+                        color: Colors.blue[800],
+                        size: 60,
+                      ),
+                      Text(
+                        " ${task.time}",
                         style: TextStyle(
                             color: Colors.blue[800],
-                            fontWeight: FontWeight.w400,
-                            fontSize: 22,
-                            fontFamily: "Anton",
-                            letterSpacing: 2.5),
-                      )),
-                  Positioned(
-                      top: MediaQuery.of(context).size.height * 0.16,
-                      left: MediaQuery.of(context).size.width * 0.1,
-                      width: MediaQuery.of(context).size.width * 0.3,
-                      child: Text(
-                        task.subTitle,
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w900,
+                            fontWeight: FontWeight.bold,
                             fontSize: 20,
-                            fontFamily: "Oswald",
-                            letterSpacing: 2),
-                      )),
-                  Positioned(
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.more_horiz),
-                    ),
+                            fontFamily: "OpenSans",
+                            letterSpacing: 1.5),
+                      ),
+                    ],
                   ),
-                  Positioned(
-                    child: Stack(
-                      children: [
-                        ...task.avatars.map((avatar) => Positioned(
-                            top: MediaQuery.of(context).size.height * 0.25,
-                            left: MediaQuery.of(context).size.width * 0.05 +
-                                task.avatars.indexOf(avatar) *
-                                    MediaQuery.of(context).size.width *
-                                    0.07,
-                            child: AvatarFader(
-                              // key: keys[widget.tasks.indexOf(task)]
-                              // [task.avatars.indexOf(avatar)],
-                              child: Opacity(
-                                opacity: 0.83, // to the Barney from himym
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                          color: Colors.blue, width: 2)),
-                                  child: ClipOval(
-                                    child: Image.asset(
-                                      avatar,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.1,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            )))
-                      ],
-                    ),
-                  )
-                ],
-              ),
-            ))
+                ),
+                Positioned(
+                    top: MediaQuery.of(context).size.height * 0.11,
+                    left: MediaQuery.of(context).size.width * 0.1,
+                    child: Text(
+                      task.title,
+                      style: TextStyle(
+                          color: Colors.blue[800],
+                          fontWeight: FontWeight.w400,
+                          fontSize: 22,
+                          fontFamily: "Anton",
+                          letterSpacing: 2.5),
+                    )),
+                Positioned(
+                    top: MediaQuery.of(context).size.height * 0.16,
+                    left: MediaQuery.of(context).size.width * 0.1,
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    child: Text(
+                      task.subTitle,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w900,
+                          fontSize: 20,
+                          fontFamily: "Oswald",
+                          letterSpacing: 2),
+                    )),
+                Positioned(child: AvatarFader(avatars: task.avatars))
+              ],
+            ),
+          );
+        })
       ]),
     );
   }
 }
 
 class AvatarFader extends StatefulWidget {
-  final Widget child;
-  AvatarFader({Key key, @required this.child}) : super(key: key);
+  final List<String> avatars;
+  AvatarFader({
+    Key key,
+    @required this.avatars,
+  }) : super(key: key);
 
   @override
   _AvatarFaderState createState() => _AvatarFaderState();
 }
 
 class _AvatarFaderState extends State<AvatarFader>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
+  List<String> avatars;
+  // List<GlobalKey> keys;
   int position = 1;
-  AnimationController _animationController;
-  Animation _animation;
+  List<AnimationController> _animationController;
+  List<Animation> _animation;
+  AnimationController inkWellAnimController;
+  Animation inkWellAnim;
+
   @override
   void initState() {
-    _animationController =
+    // keys = List.generate(avatars.length, (index) => CurvedAnimation(parent: _animationController, curve: Curves.easeInOut));
+    avatars = widget.avatars;
+    _animationController = new List<AnimationController>(avatars.length);
+    _animation = new List<Animation>(avatars.length);
+    for (int i = 0; i < avatars.length; i++) {
+      _animationController[i] = AnimationController(
+          vsync: this, duration: Duration(milliseconds: 600));
+
+      _animation[i] = CurvedAnimation(
+          parent: _animationController[i], curve: Curves.easeInOut);
+    }
+
+    inkWellAnimController =
         AnimationController(vsync: this, duration: Duration(milliseconds: 600));
-    _animation =
-        CurvedAnimation(parent: _animationController, curve: Curves.easeInOut);
+
+    inkWellAnim =
+        CurvedAnimation(parent: inkWellAnimController, curve: Curves.easeInOut);
+
     super.initState();
   }
 
-  void show() {
-    setState(() {
-      _animationController.forward();
-    });
+  // void() inkWellRotation() async {
+
+  // }
+
+  void show() async {
+    if (_animationController[0].isDismissed)
+      for (AnimationController anim in _animationController) {
+        await Future.delayed(Duration(milliseconds: 83));
+        setState(() {
+          anim.forward();
+        });
+        print(anim.value);
+      }
+    else if (_animationController[0].isCompleted)
+      for (AnimationController anim in _animationController) {
+        await Future.delayed(Duration(milliseconds: 83));
+        setState(() {
+          anim.reverse();
+        });
+        print(anim.value);
+      }
   }
 
-  void hide() {
-    setState(() {
-      position = -1;
-      _animationController.reverse();
-    });
-  }
+  // void onTap() async {
+  //   for (GlobalKey key in keys) {
+  //     await Future.delayed(Duration(milliseconds: 40));
+  //     show();
+  //   }
+  // }
+
+  // void hide() {
+  //   setState(() {
+  //     _animationController.reverse();
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-        animation: _animation,
-        child: widget.child,
-        builder: (_, child) {
-          return Transform.translate(
-            offset: Offset(0, 64 * position * (1 - _animation.value)),
-            child: Opacity(
-              opacity: _animation.value,
-              child: child,
-            ),
+    // bool butt = true;
+    return Stack(
+      children: [
+        //  Positioned(
+        // top: MediaQuery.of(context).size.height * 0.25,
+        // left: MediaQuery.of(context).size.width * 0.05 +
+        //     avatars.indexOf(avatar) *
+        //         MediaQuery.of(context).size.width *
+        //         0.07,
+        //       child: ...avat?ars.map((e) => null)
+        //  ),
+        ...avatars.map((avatar) {
+          return Stack(
+            children: [
+              Positioned(
+                top: MediaQuery.of(context).size.height * 0.25,
+                left: MediaQuery.of(context).size.width * 0.15 +
+                    avatars.indexOf(avatar) *
+                        MediaQuery.of(context).size.width *
+                        0.07,
+                child: AnimatedBuilder(
+                  animation: _animation[avatars.indexOf(avatar)],
+                  builder: (_, child) {
+                    print("${_animation[0].value} is meeeeee");
+                    return Transform.translate(
+                      offset: Offset(
+                          -_animation[avatars.indexOf(avatar)].value * 10, 0),
+                      child:
+                          // Container(
+                          //     width: 100, height: 100, color: Colors.red)
+
+                          Opacity(
+                        opacity: _animation[avatars.indexOf(avatar)].value,
+                        child: child,
+                      ),
+                    );
+                  },
+                  child: Opacity(
+                    opacity: 0.83, // to the Barney from himym
+                    child: Container(
+                      decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Colors.blue, width: 2)),
+                      child: ClipOval(
+                        child: Image.asset(
+                          avatar,
+                          width: MediaQuery.of(context).size.width * 0.1,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            ],
           );
-        });
+        }),
+        Positioned(
+          top: MediaQuery.of(context).size.height * 0.265,
+          left: MediaQuery.of(context).size.width * 0.05,
+          child: AnimatedBuilder(
+            animation: inkWellAnim,
+            builder: (_, child) {
+              return Transform.rotate(
+                angle: 3.14 / 2 * inkWellAnim.value,
+                child: child,
+              );
+            },
+            child: InkWell(
+              child: Icon(
+                Icons.more_horiz,
+                color: Colors.blue[800],
+              ),
+              onTap: () {
+                print("Icon tapped");
+
+                setState(() {
+                  if (inkWellAnimController.isCompleted)
+                    inkWellAnimController.reverse();
+                  if (inkWellAnimController.isDismissed)
+                    inkWellAnimController.forward();
+                  show();
+                });
+              },
+            ),
+          ),
+        ),
+      ],
+    );
   }
 }
 
@@ -370,6 +465,24 @@ class _TimeTabBarState extends State<TimeTabBar> {
   void initState() {
     keys = List.generate(widget.times.length, (index) => GlobalKey());
     super.initState();
+  }
+
+  void onInit() {
+    setState(() {
+      RenderBox object = keys[1].currentContext.findRenderObject();
+      Offset globalPosition = object.localToGlobal(Offset(0, 0));
+      double mid = MediaQuery.of(context).size.width / 2;
+      double pos =
+          _scrollController.offset.toDouble() + globalPosition.dx - mid;
+      // pos = pos.abs();s
+      setState(() {
+        for (var time in widget.times) time.isActive = false;
+        widget.times[1].isActive = true;
+
+        _scrollController.animateTo(pos + 60,
+            duration: Duration(milliseconds: 350), curve: Curves.easeIn);
+      });
+    });
   }
 
   void setPosition() {
@@ -450,9 +563,26 @@ class _TimeTabBarState extends State<TimeTabBar> {
                       ),
                     );
                   }),
+                  // Builder(builder: (context) {
+                  // setState(() {
+                  //   RenderBox object =
+                  //       keys[1].currentContext.findRenderObject();
+                  //   Offset globalPosition =
+                  //       object.localToGlobal(Offset(0, 0));
+                  //   double mid = MediaQuery.of(context).size.width / 2;
+                  //   double pos = _scrollController.offset.toDouble() +
+                  //       globalPosition.dx -
+                  //       mid;
+                  //   setState(() {
+                  //     _scrollController.animateTo(pos + 60,
+                  //         duration: Duration(milliseconds: 350),
+                  //         curve: Curves.easeIn);
+                  //   });
+                  // });
+                  // return
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 2.5,
-                  ),
+                  )
                 ])));
   }
 }
