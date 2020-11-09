@@ -1,8 +1,11 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:dio/dio.dart';
+import 'package:faker/faker.dart';
 import 'package:flutter/material.dart';
 // import 'dart:math' as math;
 
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class TeamTaskManagement extends StatefulWidget {
   static const String name = "Team Task Management";
@@ -25,98 +28,332 @@ class _TeamTaskManagementState extends State<TeamTaskManagement> {
     Time(string: "13:00 - 15:00", isActive: false),
     Time(string: "15:00 - 17:00", isActive: false),
   ];
+  final List<RecentTask> recentTasks = [
+    RecentTask(
+        title: faker.conference.name(),
+        icon: Icons.accessibility_sharp,
+        isActive: true),
+    RecentTask(
+        title: faker.conference.name(),
+        icon: Icons.accessibility_sharp,
+        isActive: true),
+    RecentTask(
+        title: faker.conference.name(),
+        icon: Icons.accessibility_sharp,
+        isActive: true),
+    RecentTask(
+        title: faker.conference.name(),
+        icon: Icons.accessibility_sharp,
+        isActive: true),
+    RecentTask(
+        title: faker.conference.name(),
+        icon: Icons.accessibility_sharp,
+        isActive: true),
+    RecentTask(
+        title: faker.conference.name(),
+        icon: Icons.accessibility_sharp,
+        isActive: true),
+  ];
+
+  final GlobalKey<SliverAnimatedListState> listKey =
+      new GlobalKey<SliverAnimatedListState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: CustomScrollView(
-      slivers: [
-        SliverAppBar(
-            expandedHeight: MediaQuery.of(context).size.height * 0.75,
-            backgroundColor: Color.fromRGBO(15, 17, 52, 1),
-            toolbarHeight: 80,
-            floating: true,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Stack(
-                children: [
-                  Positioned(
-                    top: MediaQuery.of(context).size.height * 0.08,
-                    left: MediaQuery.of(context).size.width * 0.1,
-                    child: IconButton(
-                        color: Colors.white,
-                        highlightColor: Colors.white,
-                        icon: Icon(Icons.more_vert,
-                            color: Colors.white, size: 40),
-                        onPressed: () => Navigator.pop(context)),
-                  ),
-                  Positioned(
-                    top: MediaQuery.of(context).size.height * 0.03,
-                    right: MediaQuery.of(context).size.width * 0.1,
-                    child: ClipOval(
-                        child: Image.asset(
-                      "assets/avatars/1_002.jpg",
-                      fit: BoxFit.fitHeight,
-                    )),
-                  ),
-                  Positioned(
-                    top: MediaQuery.of(context).size.height * 0.2,
-                    left: MediaQuery.of(context).size.width * 0.1,
-                    child: Text(
-                      "Today Task",
-                      style: TextStyle(
-                          fontSize: MediaQuery.of(context).size.width / 20,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900,
-                          letterSpacing: 1.2,
-                          fontFamily: "McLaren"),
-                    ),
-                  ),
-                  TimeTabBar(
-                    times: times,
-                  ),
-                  TaskCard(
-                    tasks: [
-                      Task(
-                        time: "09:50",
-                        title: "MEETING",
-                        subTitle: "Flexi Weekly Meeting",
-                        avatars: [
-                          "assets/avatars/1_002.jpg",
-                          "assets/avatars/1_003.jpg",
-                          "assets/avatars/1.jpg",
-                          "assets/avatars/4_002.jpg",
-                          "assets/avatars/4_003.jpg"
-                        ],
+        // backgroundColor: Colors.transparent,
+        body: Stack(
+      alignment: Alignment.center,
+      children: [
+        CustomScrollView(
+          slivers: [
+            SliverAppBar(
+                expandedHeight: MediaQuery.of(context).size.height * 0.75,
+                backgroundColor: Color.fromRGBO(15, 17, 52, 1),
+                toolbarHeight: 80,
+                floating: true,
+                flexibleSpace: FlexibleSpaceBar(
+                  background: Stack(
+                    children: [
+                      Positioned(
+                        top: MediaQuery.of(context).size.height * 0.08,
+                        left: MediaQuery.of(context).size.width * 0.1,
+                        child: IconButton(
+                            color: Colors.white,
+                            highlightColor: Colors.white,
+                            icon: Icon(Icons.more_vert,
+                                color: Colors.white, size: 40),
+                            onPressed: () => Navigator.pop(context)),
                       ),
-                      Task(
-                        time: "10:30",
-                        title: "RESEARCH",
-                        subTitle: "Research About UI",
-                        avatars: [
-                          "assets/avatars/10_002.jpg",
-                          "assets/avatars/10.jpg",
-                          "assets/avatars/11_002.jpg",
-                          "assets/avatars/11.jpg",
-                        ],
+                      Positioned(
+                        top: MediaQuery.of(context).size.height * 0.03,
+                        right: MediaQuery.of(context).size.width * 0.1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(color: Colors.blue, width: 1)),
+                          child: ClipOval(
+                              child: Image.asset(
+                            "assets/avatars/1_002.jpg",
+                            fit: BoxFit.fitHeight,
+                          )),
+                        ),
                       ),
-                      Task(
-                        time: "09:50",
-                        title: "MEETING",
-                        subTitle: "Flexi Weekly Meeting",
-                        avatars: [
-                          "assets/avatars/12_002.jpg",
-                          "assets/avatars/14.jpg",
-                          "assets/avatars/12.jpg",
-                          "assets/avatars/13_002.jpg"
+                      Positioned(
+                        top: MediaQuery.of(context).size.height * 0.2,
+                        left: MediaQuery.of(context).size.width * 0.1,
+                        child: Text(
+                          "Today Task",
+                          style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.width / 20,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: 1.2,
+                              fontFamily: "McLaren"),
+                        ),
+                      ),
+                      TimeTabBar(
+                        times: times,
+                      ),
+                      TaskCard(
+                        tasks: [
+                          Task(
+                            time: "09:50",
+                            title: "MEETING",
+                            subTitle: "Flexi Weekly Meeting",
+                            avatars: [
+                              "assets/avatars/1_002.jpg",
+                              "assets/avatars/1_003.jpg",
+                              "assets/avatars/1.jpg",
+                              "assets/avatars/4_002.jpg",
+                              "assets/avatars/4_003.jpg"
+                            ],
+                          ),
+                          Task(
+                            time: "10:30",
+                            title: "RESEARCH",
+                            subTitle: "Research About UI",
+                            avatars: [
+                              "assets/avatars/10_002.jpg",
+                              "assets/avatars/10.jpg",
+                              "assets/avatars/11_002.jpg",
+                              "assets/avatars/11.jpg",
+                            ],
+                          ),
+                          Task(
+                            time: "09:50",
+                            title: "MEETING",
+                            subTitle: "Flexi Weekly Meeting",
+                            avatars: [
+                              "assets/avatars/12_002.jpg",
+                              "assets/avatars/14.jpg",
+                              "assets/avatars/12.jpg",
+                              "assets/avatars/13_002.jpg"
+                            ],
+                          )
                         ],
                       )
                     ],
-                  )
-                ],
+                  ),
+                )),
+            SliverToBoxAdapter(
+              child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    // borderRadius: BorderRadius.only(
+                    //     topLeft: Radius.circular(50),
+                    //     topRight: Radius.circular(50))
+                  ),
+                  height: MediaQuery.of(context).size.height * 0.08,
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.all(20),
+                  child: Text(
+                    "Recent Tasks",
+                    style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width / 25,
+                        fontWeight: FontWeight.w900,
+                        letterSpacing: 1,
+                        fontFamily: "OpenSans"),
+                  )),
+            ),
+            ...recentTasks.map((task) => RecentTaskBuilder(task: task))
+          ],
+        ),
+        Positioned(
+            bottom: 0,
+            child: Container(
+              height: 1,
+              width: MediaQuery.of(context).size.width,
+              decoration: BoxDecoration(boxShadow: [
+                BoxShadow(
+                    blurRadius: 200, spreadRadius: 90, color: Colors.white)
+              ]),
+            )),
+        PlusButton(
+          onTap: () {
+            AwesomeDialog(
+              context: context,
+              animType: AnimType.SCALE,
+              dialogType: DialogType.INFO,
+              body: Center(
+                child: InkWell(
+                  onTap: () async {
+                    final url =
+                        'https://dribbble.com/shots/14381895-Team-Task-Management';
+                    if (await canLaunch(url)) {
+                      await launch(
+                        url,
+                        forceSafariVC: false,
+                      );
+                    }
+                  },
+                  child: Text(
+                    'Design by AmirUix',
+                    style: TextStyle(fontStyle: FontStyle.italic),
+                  ),
+                ),
               ),
-            ))
+              title: 'This is Ignored',
+              desc: 'This is also Ignored',
+              btnOkOnPress: () {},
+            )..show();
+          },
+        ),
       ],
     ));
+  }
+}
+
+class RecentTask {
+  final String title;
+  final bool isActive;
+  final IconData icon;
+
+  RecentTask({this.title, this.isActive, this.icon});
+}
+
+class RecentTaskBuilder extends StatefulWidget {
+  final RecentTask task;
+  const RecentTaskBuilder({Key key, this.task}) : super(key: key);
+  @override
+  _RecentTaskBuilderState createState() => _RecentTaskBuilderState();
+}
+
+class _RecentTaskBuilderState extends State<RecentTaskBuilder> {
+  // List<GlobalKey> keys;
+  GlobalKey iconKey = GlobalKey();
+  RecentTask task;
+  @override
+  void initState() {
+    // for (int i = 0; i < widget.tasks.length; i++) keys[i] = GlobalKey();
+    task = widget.task;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverToBoxAdapter(
+      child: Container(
+        height: 150,
+        // wid
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+                height: 150,
+                width: MediaQuery.of(context).size.width * 0.2,
+                child: Stack(children: [
+                  Positioned(
+                    left: MediaQuery.of(context).size.width * 0.1 + 12,
+                    child: Container(
+                        width: 2,
+                        height: 200,
+                        decoration: BoxDecoration(color: Colors.blue[300])),
+                  ),
+                  Positioned(
+                    left: MediaQuery.of(context).size.width * 0.1,
+                    // top: MediaQuery.of(context).size.height * 0.04,
+                    child: Container(
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color:
+                              task.isActive ? Colors.blue[300] : Colors.white,
+                          border: Border.all(color: Colors.blue, width: 1),
+                        ),
+                        child: Icon(Icons.bolt, color: Colors.white)),
+                  ),
+                ])),
+            Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(25),
+                    border: Border.all(color: Colors.blue.withOpacity(0.2))),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Icon(task.icon, color: Colors.blue[300]),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Text(
+                          "${task.title}",
+                          style: TextStyle(
+                              fontSize: MediaQuery.of(context).size.width / 30,
+                              color: Colors.blueGrey[300],
+                              fontWeight: FontWeight.w300,
+                              letterSpacing: 1.2,
+                              fontFamily: "Anton"),
+                        )),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Icon(Icons.arrow_forward, color: Colors.blue[200])
+                  ],
+                )),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PlusButton extends StatefulWidget {
+  final VoidCallback onTap;
+
+  const PlusButton({Key key, this.onTap}) : super(key: key);
+  @override
+  _PlusButtonState createState() => _PlusButtonState();
+}
+
+class _PlusButtonState extends State<PlusButton> {
+  @override
+  Widget build(BuildContext context) {
+    return Positioned(
+        bottom: 30,
+        child: GestureDetector(
+          onTap: widget.onTap,
+          child: Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.blue[200], spreadRadius: 5, blurRadius: 25)
+              ],
+              color: Colors.blue.withOpacity(0.6),
+            ),
+            child: Icon(
+              MaterialCommunityIcons.plus,
+              color: Colors.white,
+              size: 30,
+            ),
+            width: 100,
+            height: 100,
+          ),
+        ));
   }
 }
 
@@ -127,53 +364,21 @@ class Task {
   final List<String> avatars;
 
   Task({
-    @required this.time,
-    @required this.subTitle,
-    @required this.title,
-    @required this.avatars,
+    this.time,
+    this.subTitle,
+    this.title,
+    this.avatars,
   });
 }
 
 class TaskCard extends StatefulWidget {
   final List<Task> tasks;
-  TaskCard({@required this.tasks});
+  TaskCard({this.tasks});
   @override
   _TaskCardState createState() => _TaskCardState();
 }
 
 class _TaskCardState extends State<TaskCard> {
-  List<bool> expndedAvatar;
-
-  @override
-  void initState() {
-    // for (int i = 0; i < widget.tasks.length; i++) {
-    // print("key[$i][$j]");
-    // widget.tasks[i].keys = List.generate(widget.tasks[i].avatars.length,
-    //     (index) => GlobalKey<_AvatarFaderState>());
-    //  = new GlobalKey<_AvatarFaderState>();
-    // keys[i][j] = new GlobalKey<_AvatarFaderState>();
-
-    //   // expndedAvatar = new List<bool>(widget.tasks.length);
-    // }
-
-    super.initState();
-  }
-
-  void onTap(List<GlobalKey<_AvatarFaderState>> keysx) async {
-    print("im ontappppppppppp");
-    for (GlobalKey<_AvatarFaderState> key in keysx) {
-      await Future.delayed(Duration(milliseconds: 100));
-      key.currentState.show();
-    }
-  }
-
-  // void onHide(List<GlobalKey> keys) async {
-  //   for (GlobalKey<_AvatarFaderState> key in keys) {
-  //     await Future.delayed(Duration(milliseconds: 100));
-  //     key.currentState.hide();
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
     final tasks = widget.tasks;
@@ -199,7 +404,7 @@ class _TaskCardState extends State<TaskCard> {
                       blurRadius: 20)
                 ],
                 gradient: LinearGradient(
-                    colors: [Colors.blue[200], Colors.blue[400]],
+                    colors: [Colors.blue[200], Colors.blue[600]],
                     end: Alignment.bottomCenter,
                     begin: Alignment.topCenter),
                 // color: Color.fromRGBO(0, 173, 255, 1),
@@ -268,7 +473,7 @@ class AvatarFader extends StatefulWidget {
   final List<String> avatars;
   AvatarFader({
     Key key,
-    @required this.avatars,
+    this.avatars,
   }) : super(key: key);
 
   @override
@@ -319,15 +524,13 @@ class _AvatarFaderState extends State<AvatarFader>
         setState(() {
           anim.forward();
         });
-        print(anim.value);
       }
     else if (_animationController[0].isCompleted)
-      for (AnimationController anim in _animationController) {
+      for (int i = _animationController.length - 1; i >= 0; i--) {
         await Future.delayed(Duration(milliseconds: 83));
         setState(() {
-          anim.reverse();
+          _animationController[i].reverse();
         });
-        print(anim.value);
       }
   }
 
@@ -378,7 +581,7 @@ class _AvatarFaderState extends State<AvatarFader>
                           //     width: 100, height: 100, color: Colors.red)
 
                           Opacity(
-                        opacity: _animation[avatars.indexOf(avatar)].value,
+                        opacity: 1 - _animation[avatars.indexOf(avatar)].value,
                         child: child,
                       ),
                     );
@@ -415,12 +618,11 @@ class _AvatarFaderState extends State<AvatarFader>
             },
             child: InkWell(
               child: Icon(
-                Icons.more_horiz,
+                Icons.more_vert,
                 color: Colors.blue[800],
+                size: 28,
               ),
               onTap: () {
-                print("Icon tapped");
-
                 setState(() {
                   if (inkWellAnimController.isCompleted)
                     inkWellAnimController.reverse();

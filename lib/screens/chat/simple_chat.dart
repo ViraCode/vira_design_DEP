@@ -134,8 +134,7 @@ class _SimpleChatState extends State<SimpleChat> {
 class MyMessage extends StatelessWidget {
   final String message;
   final String time;
-  const MyMessage({Key key, @required this.message, this.time})
-      : super(key: key);
+  const MyMessage({Key key, this.message, this.time}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -160,8 +159,7 @@ class MyMessage extends StatelessWidget {
 class GuyMessage extends StatelessWidget {
   final String message;
   final String time;
-  const GuyMessage({Key key, @required this.message, this.time})
-      : super(key: key);
+  const GuyMessage({Key key, this.message, this.time}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -28,7 +28,8 @@ dependencies:
   # flutter_secure_storage: ^3.3.3
   backdrop: ^0.4.7 
   flutter_masked_text: ^0.7.0
-  flare_flutter: ^1.7.1
+  flare_flutter: ^2.0.3
+  url_launcher: ^5.5.0
   easy_localization: ^2.3.3
   easy_localization_loader: ^0.0.2
   equatable: ^1.2.5
@@ -56,6 +57,7 @@ dependencies:
   flutter_icons: ^1.1.0
   pull_to_refresh: ^1.6.2
   carousel_slider: ^2.3.1
+  awesome_dialog: ^1.2.1
   wave: ^0.1.0
   infinite_listview: ^1.0.1+1
   # The following addsexport https_proxy="https://127.0.0.1:8123" the Cupertino Icons font to your application.
@@ -108,6 +110,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/avatars/
+    - online_assets/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

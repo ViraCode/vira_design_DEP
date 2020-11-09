@@ -7,6 +7,7 @@ import 'package:vira_design/screens/backdrop/backdrop_sample.dart';
 import 'package:vira_design/screens/backdrop/custom_backdrop.dart';
 import 'package:vira_design/screens/bottom_navigation_bars/convex_bottom_navigation_bar.dart';
 import 'package:vira_design/screens/buttons/buttons.dart';
+import 'package:vira_design/screens/customs/blur_image.dart';
 import 'package:vira_design/screens/dialog_box/custom_dialog_box.dart';
 import 'package:vira_design/screens/product_page/sliver_product.dart';
 import 'package:vira_design/screens/product_page/sliver_stacked_product.dart';
@@ -117,6 +118,14 @@ class _MainScreenState extends State<MainScreen> {
                         letterSpacing: 1)),
                 onTap: () =>
                     Navigator.pushNamed(context, TeamTaskManagement.route)),
+            ListTile(
+                title: Text(BlurImage.name,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: "Lato",
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 1)),
+                onTap: () => Navigator.pushNamed(context, BlurImage.route)),
 
             // Directionality(
             //   textDirection: TextDirection.rtl,

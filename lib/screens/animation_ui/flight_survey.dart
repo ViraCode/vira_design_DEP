@@ -36,11 +36,7 @@ class Page extends StatefulWidget {
   final String number;
   final VoidCallback onOptionSelected;
   final List<String> answers;
-  Page(
-      {@required this.question,
-      @required this.number,
-      @required this.onOptionSelected,
-      @required this.answers});
+  Page({this.question, this.number, this.onOptionSelected, this.answers});
 
   @override
   _PageState createState() => _PageState();
@@ -134,9 +130,9 @@ class OptionItem extends StatefulWidget {
   final Function onTap;
   OptionItem({
     Key key,
-    @required this.option,
-    @required this.onTap,
-    @required this.faderkey,
+    this.option,
+    this.onTap,
+    this.faderkey,
   }) : super(key: key);
   @override
   _OptionItemState createState() => _OptionItemState();
@@ -181,7 +177,7 @@ class _OptionItemState extends State<OptionItem> {
 
 class ItemFader extends StatefulWidget {
   final Widget child;
-  ItemFader({Key key, @required this.child}) : super(key: key);
+  ItemFader({Key key, this.child}) : super(key: key);
   @override
   _ItemFaderState createState() => _ItemFaderState();
 }

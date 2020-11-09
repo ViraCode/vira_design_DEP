@@ -37,20 +37,13 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
           )),
       bottomNavigationBar: BottomNavigationBar(
         items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              title: Text(
-                "Friends",
-                style: TextStyle(fontFamily: "McLaren"),
-              )),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text("HOME", style: TextStyle(fontFamily: "McLaren"))),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Friends"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "HOME"),
           BottomNavigationBarItem(
               icon: Icon(
                 Icons.message,
               ),
-              title: Text("Chat", style: TextStyle(fontFamily: "McLaren"))),
+              label: "Chat"),
         ],
       ),
     );
